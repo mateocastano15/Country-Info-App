@@ -6,7 +6,7 @@ export interface Country{
 }
 
 export interface CountryInfo{
-    borders: string[];
+    borders:string[]
     populationCounts: {
         year: string;
         value: number;
