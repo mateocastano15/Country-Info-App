@@ -10,10 +10,17 @@ interface Country {
     countrycode: string;
 }
 
+
 export default function Home() {
     const params = useParams();
     const [query, setQuery] = useState<Country>({ name: '', countrycode: '' });
-    const [data, setData] = useState<any>(null);
+    interface CountryData {
+        flag: string;
+        borders: { commonName: string; countryCode: string }[];
+        populationCounts: {year: string; value: string}[];
+    }
+
+    const [data, setData] = useState<CountryData | null>(null);
 
     useEffect(() => {
         if (params) {
@@ -33,7 +40,6 @@ export default function Home() {
             })
             .then(res => res.json())
             .then(data => {
-                console.log('Fetched data:', data); // Debugging log
                 setData(data);
             })
             .catch(error => console.error('Error:', error));
@@ -47,7 +53,7 @@ export default function Home() {
     return (
         <div>
             <Title name={query.name} flag={data.flag} />
-            <Borders borders={data.borders.commonName} countryCode={data.borders.CountryCode} />
+            <Borders borders={data.borders}/>
             <Population populationCounts={data.populationCounts} />
         </div>
     );

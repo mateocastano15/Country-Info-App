@@ -8,10 +8,10 @@ interface Border {
 
 interface borderProps {
 
-    borders: any;
-
-    countryCode: any;
-
+    borders: {
+        commonName: string;
+        countryCode: string;
+    }[];
 }
 
 export default function Borders(props: borderProps) {
